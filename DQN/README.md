@@ -14,7 +14,7 @@
 * Hard copy every 100 step when using target separation
 * Epsilon greedy decay as episodes increase
 * CUDA device usage
-* Target evaluation without gradient back propagation
+* Target evaluation without gradient back propagation (add model.eval)
 * total_episodes = 20000
 * batch_size = 256
 * gamma      = 0.99

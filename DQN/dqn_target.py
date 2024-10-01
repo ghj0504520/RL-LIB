@@ -95,7 +95,10 @@ class DQNTARGETAGENT(object):
     def action_selection(self, state, epsilon):
         if random.random() > epsilon:
 
-            state = to_device(state)
+            # if your model has Dropout or BatchNorm, needing to set this
+            self.critic.eval()
+            # figure out, state is already in device
+            # state = to_device(state)
             if len(state.shape) == 1:  # If it's a single state without batch dimension
                 state = state.unsqueeze(0)
             
