@@ -6,7 +6,10 @@
   * $y_t = r_{t+1}+\gamma Q(s_{t+1},argmax_{a'}Q(s_{t+1},a',w),\hat w)$
 * ![DDQN-Algorithm](DDQN-algorithm.png)
 ## Figure Out
+* Value-Based
+* Model-Free
 * OFF-Policy
+* Per-episode training instead of per-step
 * Hard copy every 50 step
 * Epsilon greedy decay as episodes increase
 * CUDA device usage

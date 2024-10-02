@@ -8,6 +8,8 @@
   * Hence, expectation only has one action with greedy policy
 * ![EXPSARSA-Algorithm](EXPSARSA-algorithm.png)
 ## Figure Out
+* Value-Based
+* Model-Free
 * ON-Policy
 * Epsilon greedy
   * epsilon = 0.2

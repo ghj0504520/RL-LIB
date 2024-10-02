@@ -6,6 +6,8 @@
 * $Q_B(S, A) = Q_B(S, A) + \alpha(R + (\gamma Q_A(S', argmax_aQ_B(S',a) ) - Q_B(S, A))$
 * ![DoubleQL-Algorithm](double_qlearning.jpg)
 ## Figure Out
+* Value-Based
+* Model-Free
 * OFF-Policy
 * Epsilon greedy
   * epsilon = 0.2

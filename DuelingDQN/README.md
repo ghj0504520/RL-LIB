@@ -9,7 +9,10 @@
   * 為了避免機器最後讓所有𝑉(s)都是0而造成𝑄(s,a) = 𝐴(s,a)，實作上會對𝐴(s,a)做一些約束，近而讓機器更新𝑉(s)，實作上約束項可以做normalization (mean)。
 * ![DQN-Algorithm](DQN-algorithm.png)
 ## Figure Out
+* Value-Based
+* Model-Free
 * OFF-Policy
+* Per-episode training instead of per-step
 * Dueling Q network architecture
 * Hard copy every 100 step
 * Epsilon greedy decay as episodes increase

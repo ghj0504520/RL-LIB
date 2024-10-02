@@ -213,7 +213,7 @@ for episode_idx in range(1, total_episodes + 1):
         if done:
             break
 
-    #############################################
+    ############################################# Per-episode training instead of per-step
     if(replay_buffer.__len__() >= batch_size):
         training_batch = replay_buffer.sample(batch_size)
 

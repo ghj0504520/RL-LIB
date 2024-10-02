@@ -5,6 +5,8 @@
 * $Q(S, A) = Q(S, A) + \alpha(R + (\gamma max_aQ(S', a) - Q(S, A))$
 * ![QL-Algorithm](q-learning.png)
 ## Figure Out
+* Value-Based
+* Model-Free
 * OFF-Policy
 * Epsilon greedy
   * epsilon = 0.2

@@ -10,7 +10,10 @@
 * w/ target q separation
   * ![DQN-Algorithm](DQN-algorithm.png)
 ## Figure Out
+* Value-Based
+* Model-Free
 * OFF-Policy
+* Per-episode training instead of per-step
 * Hard copy every 100 step when using target separation
 * Epsilon greedy decay as episodes increase
 * CUDA device usage

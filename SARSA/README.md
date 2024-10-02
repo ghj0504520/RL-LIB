@@ -5,6 +5,8 @@
 * $Q(S, A) = Q(S, A) + \alpha(R + (\gamma Q(S', A') - Q(S, A))$
 * ![SARSA-Algorithm](SARSA-algorithm.png)
 ## Figure Out
+* Value-Based
+* Model-Free
 * ON-Policy
 * Epsilon greedy
   * epsilon = 0.2
