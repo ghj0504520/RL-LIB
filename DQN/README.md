@@ -8,6 +8,7 @@
 * w/o target q separation
   * ![DQN-noTarget-Algorithm](DQN-no-target.jpeg)
 * w/ target q separation
+  * ![DQN-architecture](DQNarchitecture.png)
   * ![DQN-Algorithm](DQN-algorithm.png)
 ## Figure Out
 * Value-Based

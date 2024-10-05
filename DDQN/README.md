@@ -4,6 +4,7 @@
 ## Main Algorithm
 * Using predict network to find action with maximal q value of next state, then using target network to evaluate next state q value of that action
   * $y_t = r_{t+1}+\gamma Q(s_{t+1},argmax_{a'}Q(s_{t+1},a',w),\hat w)$
+* ![DDQN-Architecture](Architecture-of-DDQN-model.png)
 * ![DDQN-Algorithm](DDQN-algorithm.png)
 ## Figure Out
 * Value-Based
