@@ -88,16 +88,17 @@ for episode in range(total_episodes):
     t = 0
     state1, info = env.reset()
     action1 = dqlAgent.choose_action(state1)
- 
+    done = False
     #Initializing the reward
     episodesReward = 0
-    while t < max_steps:
+    while not done:
         #Visualizing the training
         env.render()
 
         #Getting the next state
-        state2, reward, done, truncated, info = env.step(action1)
- 
+        state2, reward, terminate, truncated, info = env.step(action1)
+
+        done = terminate or truncated
         #Choosing the next action
         action2 = dqlAgent.choose_action(state2)
          

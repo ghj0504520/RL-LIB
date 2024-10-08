@@ -240,12 +240,13 @@ def train():
         step = 0
         episode_v_losses = 0
         episode_p_losses = 0
-        while not done and step<=200:
+        while not done :
             step = step +1
-
+            
             action = ddpgAgent.select_action(state, ounoise.noise())
-            next_state, reward, done, truncated, info = env.step(action.numpy()[0])
+            next_state, reward, terminate, truncated, info = env.step(action.numpy()[0])
 
+            done = terminate or truncated
             replay_buffer.push(
                 state, 
                 torch.tensor([action], device=deviceGPU), 
@@ -268,7 +269,6 @@ def train():
                 episode_v_losses += value_loss.item()
 
         # update EWMA reward and log the results
-        step-=1
         p_losses.append(episode_p_losses/step)
         v_losses.append(episode_v_losses/step)
         ewma_reward = 0.05 * episode_reward + (1 - 0.05) * ewma_reward
