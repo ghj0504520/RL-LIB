@@ -70,13 +70,13 @@ class Critic(nn.Module):
 
 # DQN AGENT
 class DQNAGENT(object):
-    def __init__(self, num_inputs, num_actions, lr_c=1e-3):
+    def __init__(self, num_inputs, num_actions):
         super(DQNAGENT, self).__init__()
 
         # num_inputs: env.observation_space.shape[0]
         # num_actions: env.action_space.n
-        self.critic = Critic(256, num_inputs, num_actions)
-        self.optim = optim.Adam(self.critic.parameters(), lr=lr_c)
+        self.critic = Critic(128, num_inputs, num_actions)
+        self.optim = optim.Adam(self.critic.parameters())
         self.num_actions = num_actions
 
     def action_selection(self, state, epsilon):
@@ -141,31 +141,31 @@ class DQNAGENT(object):
 env_id = "CartPole-v1"
 env = gym.make(env_id)
 total_episodes = 20000
-batch_size = 128
+batch_size = 256
 gamma      = 0.99
-lr_c = 3e-3
 
 losses = []
 all_rewards = []
 ewma_reward = 0
 
-dqnAgent = DQNAGENT(env.observation_space.shape[0], env.action_space.n, lr_c)
+dqnAgent = DQNAGENT(env.observation_space.shape[0], env.action_space.n)
 
-replay_buffer = ReplayMemory(100000)
+replay_buffer = ReplayMemory(10000)
 
 for episode_idx in range(1, total_episodes + 1):
     initState, info = env.reset()
     state = torch.Tensor([initState]).to(deviceGPU)
     epsilon = epsilon_by_episode(episode_idx)
-    done = False
+    terminate = False
+    truncated = False
     episode_reward = 0
     step = 0
-    while not done:
+    while not terminate and not truncated:
         step = step+1
         action = dqnAgent.action_selection(state, epsilon) #select action from updated q net
         next_state, reward, terminate, truncated, info = env.step(action)
         
-        done = terminate or truncated
+        done = terminate
         replay_buffer.push(
             state, 
             torch.tensor([action], device=deviceGPU), 

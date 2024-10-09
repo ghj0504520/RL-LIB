@@ -235,18 +235,19 @@ def train():
         initState, info = env.reset()
         state = torch.Tensor([initState]).to(deviceGPU)
     
-        done = False
+        terminate = False
+        truncated = False
         episode_reward = 0
         step = 0
         episode_v_losses = 0
         episode_p_losses = 0
-        while not done :
+        while not terminate and not truncated:
             step = step +1
             
             action = ddpgAgent.select_action(state, ounoise.noise())
             next_state, reward, terminate, truncated, info = env.step(action.numpy()[0])
 
-            done = terminate or truncated
+            done = terminate
             replay_buffer.push(
                 state, 
                 torch.tensor([action], device=deviceGPU), 

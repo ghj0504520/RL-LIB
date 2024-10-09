@@ -78,17 +78,17 @@ for episode in range(total_episodes):
     t = 0
     state1, info = env.reset()
     action1 = sarsaAgent.choose_action(state1)
-    done =False
+    terminate = False
+    truncated = False
     #Initializing the reward
     episodesReward = 0
-    while not done:
+    while not terminate and not truncated:
         #Visualizing the training
         env.render()
 
         #Getting the next state
         state2, reward, terminate, truncated, info = env.step(action1)
  
-        done = terminate or truncated
         #Choosing the next action
         action2 = sarsaAgent.choose_action(state2)
          
@@ -103,7 +103,7 @@ for episode in range(total_episodes):
         episodesReward += reward
          
         #If at the end of learning process
-        if done:
+        if terminate:
             break
     totalReward.append(episodesReward)
 

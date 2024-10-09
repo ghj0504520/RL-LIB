@@ -79,15 +79,15 @@ class Critic(nn.Module):
 
 # DQN with Target Separation AGENT
 class DQNTARGETAGENT(object):
-    def __init__(self, num_inputs, num_actions, lr_c=1e-3):
+    def __init__(self, num_inputs, num_actions):
         super(DQNTARGETAGENT, self).__init__()
 
         # num_inputs: env.observation_space.shape[0]
         # num_actions: env.action_space.n
-        self.critic = Critic(256, num_inputs, num_actions)
-        self.critic_target = Critic(256, num_inputs, num_actions)
+        self.critic = Critic(128, num_inputs, num_actions)
+        self.critic_target = Critic(128, num_inputs, num_actions)
         
-        self.optim = optim.Adam(self.critic.parameters(), lr=lr_c)
+        self.optim = optim.Adam(self.critic.parameters())
         self.num_actions = num_actions
 
         hard_update(self.critic_target, self.critic)
@@ -158,32 +158,32 @@ class DQNTARGETAGENT(object):
 env_id = "CartPole-v1"
 env = gym.make(env_id)
 total_episodes = 20000
-batch_size = 128
+batch_size = 256
 gamma      = 0.99
 tau = 0.0002
-lr_c = 3e-3
 
 losses = []
 all_rewards = []
 ewma_reward = 0
 
-dqnTargetAgent = DQNTARGETAGENT(env.observation_space.shape[0], env.action_space.n, lr_c)
+dqnTargetAgent = DQNTARGETAGENT(env.observation_space.shape[0], env.action_space.n)
 
-replay_buffer = ReplayMemory(100000)
+replay_buffer = ReplayMemory(10000)
 
 for episode_idx in range(1, total_episodes + 1):
     initState, info = env.reset()
     state = torch.Tensor([initState]).to(deviceGPU)
     epsilon = epsilon_by_episode(episode_idx)
-    done = False
+    terminate = False
+    truncated = False
     episode_reward = 0
     step = 0
-    while not done:
+    while not terminate and not truncated:
         step = step+1
         action = dqnTargetAgent.action_selection(state, epsilon) #select action from updated q net
         next_state, reward, terminate, truncated, info = env.step(action)
         
-        done = terminate or truncated
+        done = terminate
         replay_buffer.push(
             state, 
             torch.tensor([action], device=deviceGPU), 
