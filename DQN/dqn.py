@@ -75,7 +75,7 @@ class DQNAGENT(object):
 
         # num_inputs: env.observation_space.shape[0]
         # num_actions: env.action_space.n
-        self.critic = Critic(128, num_inputs, num_actions)
+        self.critic = Critic(128, num_inputs, num_actions).to(deviceGPU)
         self.optim = optim.Adam(self.critic.parameters())
         self.num_actions = num_actions
 

@@ -85,7 +85,7 @@ class REINFORCEAGENT(object):
         self.gamma = gamma
         self.gae_lambda = gae_lambda
 
-        self.actorCritic = ActorCritic(hidden_size, self.num_inputs, self.action_dim)
+        self.actorCritic = ActorCritic(hidden_size, self.num_inputs, self.action_dim).to(deviceGPU)
         self.actorCritic_optim = optim.Adam(self.actorCritic.parameters(), lr=lr_ac)
         
         # action & reward memory per episode

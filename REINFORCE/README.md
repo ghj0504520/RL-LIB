@@ -38,11 +38,8 @@
 * environment: "CartPole-v1"
 ## Result
 * Normal REINFORCE
-  * ![REINFORCE-1-plot](./test1/REINFORCE_plot-whole.png)
-  * ![REINFORCE-2-plot](./test2/REINFORCE_plot-whole.png)
+  * ![REINFORCE-1-plot](./REINFORCE_plot-whole.png)
 * With Baseline
-  * ![REINFORCE-Baseline-1-plot](./test1/REINFORCE-Baseline_plot-whole.png)
-  * ![REINFORCE-Baseline-2-plot](./test2/REINFORCE-Baseline_plot-whole.png)
+  * ![REINFORCE-Baseline-1-plot](./REINFORCE-Baseline_plot-whole.png)
 * With GAE
-  * ![REINFORCE-GAE-1-plot](./test1/REINFORCE-GAE_plot-whole.png)
-  * ![REINFORCE-GAE-2-plot](./test2/REINFORCE-GAE_plot-whole.png)
+  * ![REINFORCE-GAE-1-plot](./REINFORCE-GAE_plot-whole.png)

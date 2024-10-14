@@ -125,12 +125,12 @@ class DDPGAGENT(object):
         self.num_inputs = num_inputs
         self.action_space = action_space
 
-        self.actor = Actor(hidden_size, self.num_inputs, self.action_space.shape[0])
-        self.actor_target = Actor(hidden_size, self.num_inputs, self.action_space.shape[0])
+        self.actor = Actor(hidden_size, self.num_inputs, self.action_space.shape[0]).to(deviceGPU)
+        self.actor_target = Actor(hidden_size, self.num_inputs, self.action_space.shape[0]).to(deviceGPU)
         self.actor_optim = optim.Adam(self.actor.parameters(), lr=lr_a)
 
-        self.critic = Critic(hidden_size, self.num_inputs, self.action_space.shape[0])
-        self.critic_target = Critic(hidden_size, self.num_inputs, self.action_space.shape[0])
+        self.critic = Critic(hidden_size, self.num_inputs, self.action_space.shape[0]).to(deviceGPU)
+        self.critic_target = Critic(hidden_size, self.num_inputs, self.action_space.shape[0]).to(deviceGPU)
         self.critic_optim = optim.Adam(self.critic.parameters(), lr=lr_c)
 
         self.gamma = gamma
