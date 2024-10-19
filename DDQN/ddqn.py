@@ -113,7 +113,7 @@ class DDQNAGENT(object):
             action = random.randrange(self.num_actions)
         return action
 
-    def update_parameter(self, batch):
+    def update_parameter(self, episode_idx, batch):
 
         # Concate data to tensors (No need for Variable)
         # Ensure tensors are moved to the correct device
@@ -205,7 +205,7 @@ for episode_idx in range(1, total_episodes + 1):
     if(replay_buffer.__len__() >= batch_size):
         training_batch = replay_buffer.sample(batch_size)
 
-        loss = ddqnAgent.update_parameter(training_batch)
+        loss = ddqnAgent.update_parameter(episode_idx, training_batch)
         losses.append(loss.item())
 
     ewma_reward = 0.05 * episode_reward + (1 - 0.05) * ewma_reward
