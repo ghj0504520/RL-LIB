@@ -171,7 +171,7 @@ def train(lr=0.01):
         # update EWMA reward and log the results
         ewma_reward = 0.05 * ep_reward + (1 - 0.05) * ewma_reward
 
-        losses.append(loss.detach().numpy())
+        losses.append(loss.detach().cpu().numpy())
         ewma_reward_history.append(ewma_reward)
 
         print('Episode {}\tlength: {}\treward: {}\t ewma reward: {}'.format(episode_idx, t, ep_reward, ewma_reward))

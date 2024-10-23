@@ -34,7 +34,7 @@
 ## Environment and Target Game
 * gym: 0.26.2
 * numpy: 1.26.4 
-* pytorch: 2.0.1 
+* pytorch: 2.5.0 
 * environment: "CartPole-v1"
 ## Result
 * Normal REINFORCE

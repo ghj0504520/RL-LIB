@@ -245,7 +245,7 @@ def train():
             step = step +1
             
             action = ddpgAgent.select_action(state, ounoise.noise())
-            next_state, reward, terminate, truncated, info = env.step(action.numpy()[0])
+            next_state, reward, terminate, truncated, info = env.step(action.cpu().numpy()[0])
 
             done = terminate
             replay_buffer.push(
