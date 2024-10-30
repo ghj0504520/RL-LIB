@@ -33,7 +33,6 @@
 * replay_buffer capacity 100000
 * tau = 0.002
 * noise_scale = 0.3
-* replay_size = 100000  
 * ewma_reward usage
 ## Environment and Target Game
 * gym: 0.26.2

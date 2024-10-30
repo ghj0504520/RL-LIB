@@ -26,8 +26,9 @@
 * Actor-Critic
 * Stochastic PG
   * Using one trajectory sample instead of expectation
+  * Use state value of one trajectory sample as unbiased estimate
 * CUDA device usage
-* total_episodes = 100000
+* total_episodes = 10000
 * hidden_size = 128
 * gamma = 0.999
 * ewma_reward usage
