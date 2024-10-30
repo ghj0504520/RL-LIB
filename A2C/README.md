@@ -23,6 +23,8 @@
 * Actor-Critic
 * Stochastic PG
   * Using one trajectory sample instead of expectation
+  * Use state value $G_t(\tau)$ of one trajectory sample as unbiased estimate of state-action value $Q^{\pi_\theta}(s_t,a_t)$
+  * Also, you can consider it as state value $V^{\pi_\theta}(s_t)$ estimation
 * CUDA device usage
 * learning rate = 0.01
 * total_episodes = 10000
