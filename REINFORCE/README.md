@@ -4,6 +4,8 @@
   * https://link.springer.com/article/10.1007/BF00992696
   * https://papers.nips.cc/paper_files/paper/1999/hash/464d828b85b0bed98e80ade0a5c43b0f-Abstract.html
   * http://incompleteideas.net/book/the-book-2nd.html
+* Actor-Critic
+  * https://proceedings.neurips.cc/paper/1999/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html
 * GAE: https://arxiv.org/abs/1506.02438
 ## Main Algorithm
 * Actor-Critic

@@ -63,10 +63,13 @@ class GAE:
         self.lambda_ = lambda_
         self.num_steps = num_steps          # set num_steps = None to adapt full batch
 
-    def __call__(self, rewards, values, done=False):
+    def __call__(self, rewards, values, done=True, next_value=None):
         advantages = []
         advantage = 0
-        next_value = 0
+        if done ==True:
+            next_value = 0
+        else:
+            next_value = next_value
         for r,v in zip(reversed(rewards),reversed(values)):
             td_error = r + next_value*self.gamma - v
             advantage = td_error + advantage*self.gamma*self.lambda_
@@ -90,7 +93,9 @@ class REINFORCEAGENT(object):
         
         # action & reward memory per episode
         self.saved_actions = []
+        self.dones = []
         self.rewards = []
+        self.next_states = []
 
     def select_action(self, state):
         # cannot disable gradient
@@ -124,7 +129,13 @@ class REINFORCEAGENT(object):
         log_probs = to_device(torch.stack(log_probs, dim=0)) # concat to linear
         values = to_device(torch.stack(values, dim=0).squeeze(-1)) # concat to linear; squeeze(-1), incorrect results due to broadcast
 
-        advantages = GAE(self.gamma, self.gae_lambda,None)(self.rewards,values)
+        if self.dones[-1] == True:
+            advantages = GAE(self.gamma, self.gae_lambda,None)(self.rewards,values,True,None)
+        else:
+            fin_next_state = torch.tensor([self.next_states[-1]], device=deviceGPU)
+            _, fin_next_state_value = self.actorCritic(fin_next_state)
+            advantages = GAE(self.gamma, self.gae_lambda,None)(self.rewards,values,False,fin_next_state_value)
+        
         advantages = advantages.detach()
 
 
@@ -140,7 +151,9 @@ class REINFORCEAGENT(object):
 
     def clear_memory(self):
         # reset rewards and action buffer
+        del self.dones[:]
         del self.rewards[:]
+        del self.next_states[:]
         del self.saved_actions[:]
 
 
@@ -183,6 +196,8 @@ def train(lr=0.01):
 
             done = terminate
             reinforceAgent.rewards.append(reward)
+            reinforceAgent.dones.append(terminate)
+            reinforceAgent.next_states.append(next_state)
             ep_reward += reward
             if done or truncated:
                 break

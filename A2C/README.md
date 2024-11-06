@@ -2,6 +2,8 @@
 ## Paper
 * Advantage Actor-Critic (Synchronous version of Asynchronous Advantage Actor-Critic)
   * https://arxiv.org/abs/1602.01783
+* Actor-Critic
+  * https://proceedings.neurips.cc/paper/1999/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html
 ## Main Algorithm
 * Similar to REINFORCE with Baseline
 * Actor-Critic
