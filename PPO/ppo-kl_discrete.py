@@ -130,7 +130,8 @@ class PPOCLIPAGENT():
     def select_action(self, state):
         #state = torch.tensor(state, dtype=torch.float).to(deviceGPU)
         state = state.unsqueeze(0)
-        action_dist = self.actor(state)
+        with torch.no_grad():
+            action_dist = self.actor(state)
         
         action = action_dist.sample()
         return action.item(), action_dist.log_prob(action).item()
