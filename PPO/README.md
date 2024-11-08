@@ -29,7 +29,7 @@
   * Sampling action by probability
 * TRPO algorithm ![TRPO-Algorithm](trpo.png)
 * PPO algorithm, or called PPO KL penalty ![PPO-Algorithm](ppo.png)
-  * For continuous, use $\frac{1}{L}\Sigma(log(\pi_\theta(a|s)) - log(\pi_{\theta_k}(a|s)))$ to approximate KL divergence of Normal distribution rather than $\Sigma\pi_\theta(a|s)(log(\pi_\theta(a|s)) - log(\pi_{\theta_k}(a|s)))$ 
+  * For continuous, use $\frac{1}{L}\Sigma(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ to approximate KL divergence of Normal distribution rather than $\Sigma\pi_{\theta_k}(a|s)(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ 
 * PPO Clip algorithm ![PPO-Clip-Algorithm](ppo2.png)
 * GAE Estimation
   * Figure out handle terminated state and truncated state
