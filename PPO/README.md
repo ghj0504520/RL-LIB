@@ -2,11 +2,15 @@
 ## Paper
 * TRPO
   * https://arxiv.org/abs/1502.05477
+  * https://arxiv.org/abs/1909.02769
 * PPO
   * https://arxiv.org/abs/1707.06347
+  * https://arxiv.org/abs/1906.10306
 * PPO Clip
   * https://arxiv.org/abs/2110.13799
   * https://arxiv.org/abs/2312.12065
+  * https://doi.org/10.1609/aaai.v38i11.29154
+  * https://openreview.net/forum?id=gex-2G2bLdh
 * GAE: https://arxiv.org/abs/1506.02438 
 ## Main Algorithm
 * TRPO
