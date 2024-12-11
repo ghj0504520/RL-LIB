@@ -1,7 +1,8 @@
-# DDPG (Deep Deterministic Policy Gradient) Algorithm
+# TD3 (Twin Delayed Deep Deterministic Policy Gradient) Algorithm
 ## Paper
 * DPG: https://proceedings.mlr.press/v32/silver14.html
 * DDPG: https://arxiv.org/abs/1509.02971
+* TD3: https://arxiv.org/abs/1802.09477
 ## Main Algorithm
 * An variation of Off-Policy Deterministic Actor-Critic
   * Deep neural networks for function approximation
@@ -40,4 +41,4 @@
 * pytorch: 2.0.1 
 * environment: "Pendulum-v1"
 ## Result
-* ![DDPG](DDPG_plot-whole.png)
+* ![TD3](TD3_plot-whole.png)

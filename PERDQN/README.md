@@ -1,7 +1,6 @@
-# DQN Algorithm
+# PER DQN Algorithm
 ## Paper
-* w/o target q separation: https://arxiv.org/abs/1312.5602
-* w/ target q separation: https://www.nature.com/articles/nature14236
+* PER: https://arxiv.org/abs/1511.05952
 ## Main Algorithm
 * Using target network to find maximal q value of next state and evaluate target q value 
   * $y_t = r_{t+1}+\gamma max_{a'}\hat Q(s_{t+1},a',\hat w)$
