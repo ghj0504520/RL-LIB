@@ -240,10 +240,10 @@ if __name__ == "__main__":
     average_loss = [sum(losses[i * chunk_size:(i + 1) * chunk_size]) / chunk_size for i in range(num_chunks)]
 
     # Plot the average reward and loss every 200 episodes
-    plt.figure(figsize=(18, 6))
+    plt.figure(figsize=(12, 6))
 
     # Plot for reward
-    plt.subplot(1, 3, 1)
+    plt.subplot(1, 2, 1)
     plt.plot(range(1, num_chunks + 1), average_rewards, label="Average Reward")
     plt.xlabel('Episode')
     plt.ylabel('Reward')
@@ -251,7 +251,7 @@ if __name__ == "__main__":
     plt.grid(True)
 
     # Plot for loss
-    plt.subplot(1, 3, 2)
+    plt.subplot(1, 2, 2)
     plt.plot(range(1, num_chunks + 1), average_loss, label="Average Loss", color='r')
     plt.xlabel('Episode')
     plt.ylabel('Loss')
