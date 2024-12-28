@@ -8,14 +8,14 @@
 ## Main Algorithm
 * Maximum long term total reward
   * w/o entropy:
-    * Optimal Policy: $\pi^*_{std}=\argmax_\pi\Sigma \Bbb E_{(s_t,a_t)}[r(s_t,a_t)]$
+    * Optimal Policy: $`\pi^*_{std}=\arg\max_\pi\Sigma \Bbb E_{(s_t,a_t)}[r(s_t,a_t)]`$
     * Objective: $J(\pi)=\Sigma\Bbb E_{(s_t,a_t)}[r(s_t,a_t)]$
   * w/ entropy:
-    * Optimal Policy: $\pi^*_{entropy}=\argmax_\pi\Sigma \Bbb E_{(s_t,a_t)}[r(s_t,a_t)+\alpha\mathcal H(\pi(\cdot|s_t))]$
+    * Optimal Policy: $`\pi^*_{entropy}=\arg\max_\pi\Sigma \Bbb E_{(s_t,a_t)}[r(s_t,a_t)+\alpha\mathcal H(\pi(\cdot|s_t))]`$
     * Objective: $J(\pi)=\Sigma\Bbb E_{(s_t,a_t)}[r(s_t,a_t)+\alpha\mathcal H(\pi(\cdot|s_t))]$
     * Entropy: $\mathcal H(P)=\Bbb{E}_{x\sim P}[-\log P(x)]=-\Sigma_xP(x)\log P(x)$
 * Soft Policy Improvement:
-  * $\pi_{new} =\argmin D_{KL}(\pi(\cdot|s_t)||\frac{\exp(Q^{\pi_{old}}_{soft}(s_t,\cdot))}{Z^{\pi_{old}}(s_t)})$
+  * $`\pi_{new} =\arg\min D_{KL}(\pi(\cdot|s_t)||\frac{\exp(Q^{\pi_{old}}_{soft}(s_t,\cdot))}{Z^{\pi_{old}}(s_t)})`$
   * since, $\pi(a_t|s_t)\propto\exp(-\mathcal{E}(s_t,a_t))$ 
     * And $\mathcal{E}(s_t,a_t)=-\frac{1}{\alpha}Q^\pi_{soft}(s_t,a_t)$
     * Then, using softMAX
@@ -26,15 +26,17 @@
     * $V^\pi_{soft}(s_t)=\Bbb E_{a\sim\pi}[Q^\pi_{soft}(s_t,a_t)-\alpha\log\pi(a_t|s_t)]\\ =\alpha\log\Sigma_a\exp(\frac{Q^\pi_{soft}(s_t,a_t)}{\alpha})$
 * SAC Objective:
   * $J_Q(\theta)=\Bbb E_{(s_t,a_t)}[\frac{1}{2}(Q^\theta_{soft}(s_t,a_t)-\widehat{Q^{\theta}_{soft}}(s_t,a_t))^2]$
-    * $\widehat{Q^{\theta}_{soft}}(s_t,a_t)=r_t+\gamma\Bbb E_{s_{t+1}}[{V^{\bar\psi}_{soft}}(s_{t+1})]$
-    * Using SGD, $\widehat{Q^{\theta}_{soft}}(s_t,a_t)\simeq r_t+\gamma {V^{\bar\psi}_{soft}}(s_{t+1})$
+    * $`\widehat{Q^{\theta}_{soft}}(s_t,a_t)=r_t+\gamma\Bbb E_{s_{t+1}}[{V^{\bar\psi}_{soft}}(s_{t+1})]`$
+    * Using SGD, $`\widehat{Q^{\theta}_{soft}}(s_t,a_t)\simeq r_t+\gamma {V^{\bar\psi}_{soft}}(s_{t+1})`$
     * Advanced version:
-      * $\widehat{Q^{\theta}_{soft}}(s_t,a_t)=r_t+\gamma\Bbb E_{a\sim\pi}[\min_{1,2}Q^{\bar\theta}_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)]$
-      * SGD, $\widehat{Q^{\theta}_{soft}}(s_t,a_t)\simeq r_t+\gamma(\min_{1,2}Q^{\bar\theta}_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t))$
+      * $`\widehat{Q^{\theta}_{soft}}(s_t,a_t)=r_t+\gamma\Bbb E_{a\sim\pi}[\min_{1,2}Q^{\bar\theta}_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)]`$
+      * SGD, $`\widehat{Q^{\theta}_{soft}}(s_t,a_t)\simeq r_t+\gamma(\min_{1,2}Q^{\bar\theta}_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t))`$
   * $J_V(\psi)=\Bbb E_{s_t}[\frac{1}{2}(V^\psi_{soft}(s_t)-\widehat{V^{\psi}_{soft}}(s_t))^2]$
-    * $\widehat{V^{\psi}_{soft}}(s_t)=\Bbb E_{a\sim\pi}[\min_{1,2}Q^\theta_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)]$
-    * Using SGD, $\widehat{V^{\psi}_{soft}}(s_t)\simeq \min_{1,2}Q^\theta_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)$
-  * $J_\pi(\phi)=(\min)\Bbb{E_{a_t,s_t}}[D_{KL}(\pi_\phi(\cdot|s_t)||\frac{\exp(Q^\theta_{soft}(s_t,\cdot))}{Z_\theta(s_t)})] \\=(\min)\Bbb E[\alpha\log\pi_\phi(a_t|s_t)-\min_{1,2}Q^\theta_{soft}(s_t,a_t)]\\=(\max)\Bbb E[\min_{1,2}Q^\theta_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)]\\=(\max)\Bbb E[\Sigma_t r(s_t,a_t)+\alpha\mathcal H(\pi(\cdot|s_t))]\\=$ Maximum long term total reward with entropy
+    * $`\widehat{V^{\psi}_{soft}}(s_t)=\Bbb E_{a\sim\pi}[\min_{1,2}Q^\theta_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)]`$
+    * Using SGD, $`\widehat{V^{\psi}_{soft}}(s_t)\simeq \min_{1,2}Q^\theta_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)`$
+  * $`J_\pi(\phi)=(\min)\Bbb{E_{a_t,s_t}}[D_{KL}(\pi_\phi(\cdot|s_t)||\frac{\exp(Q^\theta_{soft}(s_t,\cdot))}{Z_\theta(s_t)})] \\=(\min)\Bbb E[\alpha\log\pi_\phi(a_t|s_t)-\min_{1,2}Q^\theta_{soft}(s_t,a_t)]`$
+    * Also equal to $`(\max)\Bbb E[\min_{1,2}Q^\theta_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)]\\=(\max)\Bbb E[\Sigma_t r(s_t,a_t)+\alpha\mathcal H(\pi(\cdot|s_t))]`$
+      * Maximum long term total reward with entropy
     * $a_t=f_\phi(\epsilon_t;s_t)$, $\epsilon$ is noise
       * Reparameterization trick
     * Objective is  minimizing the KL-divergence
