@@ -19,7 +19,7 @@
   * Target Policy Smoothing Regularization
     * Add noise to action when training
     * Then, clipping
-  * Double Q network (DDQN) to mitigate overestimation 
+  * Double Q network to mitigate overestimation 
   * Delayed policy update
 * ![TD3-structure](td3-structure.png)
 * ![TD3-Algorithm](td3-algorithm.png)
