@@ -37,7 +37,7 @@
   * $`\Large J_\pi(\phi)=(\min)\Bbb{E_{a_t,s_t}}[D_{KL}(\pi_\phi(\cdot|s_t)||\frac{\exp(Q^\theta_{soft}(s_t,\cdot))}{Z_\theta(s_t)})] =(\min)\Bbb E[\alpha\log\pi_\phi(a_t|s_t)-\min_{1,2}Q^\theta_{soft}(s_t,a_t)]`$
     * Also equal to $`\Large (\max)\Bbb E[\min_{1,2}Q^\theta_{soft}(s_t,a_t)-\alpha\log\pi_\phi(a_t|s_t)]=(\max)\Bbb E[\Sigma_t r(s_t,a_t)+\alpha\mathcal H(\pi(\cdot|s_t))]`$
       * Maximum long term total reward with entropy
-    * $\Large a_t=f_\phi(\epsilon_t;s_t)$, $\epsilon$ is noise
+    * $\Large a_t=f_\phi(\epsilon_t;s_t)$, $\Large \epsilon$ is noise
       * Reparameterization trick
     * Objective is  minimizing the KL-divergence
   * $\Large J(\alpha)=\Bbb{E}[-\alpha\log\pi_t(a_t|s_t)-\alpha\bar {\mathcal H}]$
