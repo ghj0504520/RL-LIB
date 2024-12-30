@@ -2,7 +2,7 @@
 ## Paper
 * https://mi.eng.cam.ac.uk/reports/svr-ftp/auto-pdf/rummery_tr166.pdf
 ## Main Algorithm
-* $Q(S, A) = Q(S, A) + \alpha(R + (\gamma Q(S', A') - Q(S, A))$
+* $\Large Q(S, A) = Q(S, A) + \alpha(R + (\gamma Q(S', A') - Q(S, A))$
 * ![SARSA-Algorithm](SARSA-algorithm.png)
 ## Figure Out
 * Value-Based
