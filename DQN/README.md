@@ -4,7 +4,7 @@
 * w/ target q separation: https://www.nature.com/articles/nature14236
 ## Main Algorithm
 * Using target network to find maximal q value of next state and evaluate target q value 
-  * $y_t = r_{t+1}+\gamma max_{a'}\hat Q(s_{t+1},a',\hat w)$
+  * $\Large y_t = r_{t+1}+\gamma max_{a'}\hat Q(s_{t+1},a',\hat w)$
 * w/o target q separation
   * ![DQN-noTarget-Algorithm](DQN-no-target.jpeg)
 * w/ target q separation
