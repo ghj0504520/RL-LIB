@@ -2,7 +2,7 @@
 ## Paper
 * https://ieeexplore.ieee.org/document/4927542
 ## Main Algorithm
-* $Q(S, A) = Q(S, A) + \alpha(R + (\gamma ExpectedQ(S', A') - Q(S, A))$
+* $\Large Q(S, A) = Q(S, A) + \alpha(R + (\gamma ExpectedQ(S', A') - Q(S, A))$
   * np.argmax only return one index which is max value and first appeared index
     * even if there are several identical max value
   * Hence, expectation only has one action with greedy policy
