@@ -2,8 +2,8 @@
 ## Paper
 * https://proceedings.neurips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html
 ## Main Algorithm
-* $Q_A(S, A) = Q_A(S, A) + \alpha(R + (\gamma Q_B(S', argmax_aQ_A(S',a) ) - Q_A(S, A))$
-* $Q_B(S, A) = Q_B(S, A) + \alpha(R + (\gamma Q_A(S', argmax_aQ_B(S',a) ) - Q_B(S, A))$
+* $\Large Q_A(S, A) = Q_A(S, A) + \alpha(R + (\gamma Q_B(S', argmax_aQ_A(S',a) ) - Q_A(S, A))$
+* $\Large Q_B(S, A) = Q_B(S, A) + \alpha(R + (\gamma Q_A(S', argmax_aQ_B(S',a) ) - Q_B(S, A))$
 * ![DoubleQL-Algorithm](double_qlearning.jpg)
 ## Figure Out
 * Value-Based
