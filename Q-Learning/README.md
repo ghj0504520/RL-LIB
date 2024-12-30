@@ -2,7 +2,7 @@
 ## Paper
 * https://link.springer.com/article/10.1007/BF00992698
 ## Main Algorithm
-* $Q(S, A) = Q(S, A) + \alpha(R + (\gamma max_aQ(S', a) - Q(S, A))$
+* $\Large Q(S, A) = Q(S, A) + \alpha(R + (\gamma max_aQ(S', a) - Q(S, A))$
 * ![QL-Algorithm](q-learning.png)
 ## Figure Out
 * Value-Based
