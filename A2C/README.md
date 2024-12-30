@@ -15,8 +15,8 @@
   * State Value loss
 * Advantage for variance reduction
   * Policy loss
-  * $\nabla_\theta J(\theta)=\mathbb E_{\pi}[A^\pi(s,a)\nabla_\theta log_{\pi_\theta}(a|s)]$
-    * where $A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)$
+  * $\Large \nabla_\theta J(\theta)=\mathbb E_{\pi}[A^\pi(s,a)\nabla_\theta log_{\pi_\theta}(a|s)]$
+    * where $\Large A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)$
 * Trying to add **entropy loss**
 ## Figure Out
 * Policy-Based
