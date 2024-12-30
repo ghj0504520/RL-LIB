@@ -18,11 +18,11 @@
     * Insensitive to learning rate
     * Capable to reach similar results with less data
   * First, conventional objective of RL
-    * $V_\pi=\Sigma_a\pi_\theta(a|S)Q_{\pi_\theta}(S,a)$
+    * $\Large V_\pi=\Sigma_a\pi_\theta(a|S)Q_{\pi_\theta}(S,a)$
   * Second, surrogate function by Performance Difference Lemma
-    * $V_\pi=\Sigma_a\pi_\theta(a|S)Q_{\pi_\theta}(S,a)$
-    * $=\Sigma_a\pi_{\theta_k}(a|S)\frac{\pi_{\theta}(a|S)}{\pi_{\theta_k}(a|S)}Q_{\pi_{\theta_k}}(S,a)=L_{\pi_{\theta_k}}(\pi_{\theta})$
-    * where $L$ is surrogate function of $\pi_{\theta}$ under $\pi_{\theta_k}$
+    * $\Large V_\pi=\Sigma_a\pi_\theta(a|S)Q_{\pi_\theta}(S,a)$
+    * $\Large =\Sigma_a\pi_{\theta_k}(a|S)\frac{\pi_{\theta}(a|S)}{\pi_{\theta_k}(a|S)}Q_{\pi_{\theta_k}}(S,a)=L_{\pi_{\theta_k}}(\pi_{\theta})$
+    * where $L$ is surrogate function of $\Large \pi_{\theta}$ under $\pi_{\theta_k}$
 * From TRPO to PPO
   * Replace KL constraint with Lagrangian method by adding penalty terms
   * Dynamically change penalty terms
@@ -33,7 +33,7 @@
   * Sampling action by probability
 * TRPO algorithm ![TRPO-Algorithm](trpo.png)
 * PPO algorithm, or called PPO KL penalty ![PPO-Algorithm](ppo.png)
-  * For continuous, use $\frac{1}{L}\Sigma(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ to approximate KL divergence of Normal distribution rather than $\Sigma\pi_{\theta_k}(a|s)(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ 
+  * For continuous, use $\Large \frac{1}{L}\Sigma(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ to approximate KL divergence of Normal distribution rather than $\Large \Sigma\pi_{\theta_k}(a|s)(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ 
 * PPO Clip algorithm ![PPO-Clip-Algorithm](ppo2.png)
 * GAE Estimation
   * Figure out handle terminated state and truncated state
