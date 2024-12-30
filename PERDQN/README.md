@@ -3,18 +3,18 @@
 * PER: https://arxiv.org/abs/1511.05952
 ## Main Algorithm
 * Using target network to find maximal q value of next state and evaluate target q value 
-  * $y_t = r_{t+1}+\gamma max_{a'}\hat Q(s_{t+1},a',\hat w)$
+  * $\Large y_t = r_{t+1}+\gamma max_{a'}\hat Q(s_{t+1},a',\hat w)$
 * with Priority Experience Replay buffer
   * Sum tree structure to help create priority buffer
     * ![SumTree](sumtree.png)
   * Stochastic Prioritization
-    * Sampling probability $P(i)=\frac{p^\alpha_i}{\Sigma_kp^\alpha_k}$
-    * ${p_i}$ is priority (TD-error term)
-      * ${p_i}$ will add small value so as to prevent never sampling 
-    * $\alpha$ imply how important for priority, $\alpha=0$ is normal DQN 
+    * Sampling probability $\Large P(i)=\frac{p^\alpha_i}{\Sigma_kp^\alpha_k}$
+    * $\Large {p_i}$ is priority (TD-error term)
+      * $\Large {p_i}$ will add small value so as to prevent never sampling 
+    * $\Large \alpha$ imply how important for priority, $\Large \alpha=0$ is normal DQN 
   * Annealing Bias, importance-sampling (IS) weights
-    * $w_i=(\frac{1}{N}\frac{1}{P(i)})^\beta$
-    * $\beta$ imply how much impact of the PER smapling, $\beta=0$ is canceling important sampling, while $\beta=1$ is mitigate all impact of important sampling which is just normal DQN
+    * $\Large w_i=(\frac{1}{N}\frac{1}{P(i)})^\beta$
+    * $\Large \beta$ imply how much impact of the PER smapling, $\Large \beta=0$ is canceling important sampling, while $\Large \beta=1$ is mitigate all impact of important sampling which is just normal DQN
 * ![PERDQN-algorithm](per-algorithm.png)
 ## Figure Out
 * Value-Based
