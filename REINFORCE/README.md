@@ -14,12 +14,12 @@
   * Sampling action by probability
 * Monte Carlo Estimation
 * With/without variance reduction
-  * $\nabla_\theta J(\theta)=\mathbb E_{\pi}[G_t\nabla_\theta log_{\pi_\theta}(a_t|s_t)]=\mathbb E_{\pi}[Q^\pi(s,a)\nabla_\theta log_{\pi_\theta}(a|s)]$
+  * $\Large \nabla_\theta J(\theta)=\mathbb E_{\pi}[G_t\nabla_\theta log_{\pi_\theta}(a_t|s_t)]=\mathbb E_{\pi}[Q^\pi(s,a)\nabla_\theta log_{\pi_\theta}(a|s)]$
   * Baseline
-    * $=\mathbb E_{\pi}[A^\pi(s,a)\nabla_\theta log_{\pi_\theta}(a|s)]$
-    * where $A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)$
+    * $\Large =\mathbb E_{\pi}[A^\pi(s,a)\nabla_\theta log_{\pi_\theta}(a|s)]$
+    * where $\Large A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)$
   * GAE
-    * $=\mathbb E_{\pi}[A^{GAE(\gamma,\lambda)}(s)\nabla_\theta log_{\pi_\theta}(a|s)]$
+    * $\Large =\mathbb E_{\pi}[A^{GAE(\gamma,\lambda)}(s)\nabla_\theta log_{\pi_\theta}(a|s)]$
 * ![REINFORCE-Algorithm](REINFORCE.png)
 ## Figure Out
 * Policy-Based
