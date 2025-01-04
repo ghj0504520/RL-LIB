@@ -38,7 +38,7 @@
   * Also, you can consider it as state value $V^{\pi_\theta}(s_t)$ estimation
 * CPU device usage
 * learning rate = 0.001
-* total_episodes = 1400
+* total_episodes = 1200
 * hidden_size = 256
 * gamma = 0.999
 * ewma_reward usage
