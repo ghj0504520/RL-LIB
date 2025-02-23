@@ -9,7 +9,7 @@
 * Using Quantile Regression Loss from Target Quantiles
   * $\Large \tau,\tau'\sim U([0,1])$
   * $\Large L_{I}(x;\tau',\tau)=E_{\tau'}[\rho^\kappa_\tau(\delta_t^{\tau\tau'})]$
-  * $\Large \delta_t^{\tau\tau'}=B^*Z_{\tau'\hat\theta}(s,a)-Z_{\tau\theta}(s,a)=r+\gamma Z_{\tau'\hat\theta}(s',a^*)-Z_{\tau\theta}(s,a)$
+  * $`\Large \delta_t^{\tau\tau'}=B^*Z_{\tau'\hat\theta}(s,a)-Z_{\tau\theta}(s,a)=r+\gamma Z_{\tau'\hat\theta}(s',a^*)-Z_{\tau\theta}(s,a)`$
   * $\Large \rho^\kappa_\tau(u)=L_\kappa(u)|\tau-\mathbb I_{\{u<0\}}|$
     * $\Large L_\kappa(u)$ is Huber loss
 * Quantile Embedding via Positional Encoding
