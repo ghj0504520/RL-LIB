@@ -20,8 +20,8 @@
 \frac{1}{2} (y_{predict}-y_{trueth})^2, & \text{if } |y_{predict}-y_{trueth}| \le 1 \\
 |y_{predict}-y_{trueth}| - \frac{1}{2}, & \text{otherwise}
 \end{cases}`$
-  1. Quantile Thresholds (τ)
-  2. Incorporating Huber loss and quantile weights to calculate Asymmetric Quantile Penalty 
+  5. Quantile Thresholds (τ)
+  6. Incorporating Huber loss and quantile weights to calculate Asymmetric Quantile Penalty 
         * Higher quantiles (τ>0.5) penalize under-predictions more heavily
         * Lower quantiles (τ<0.5) penalize over-predictions more heavily
 * ![QRDQN-Algorithm](QRDQN.png)

@@ -121,11 +121,13 @@ class IQNAGENT(object):
         masks = to_device(torch.cat([b.mask for b in batch]))
         next_states = to_device(torch.cat([b.next_state for b in batch]).unsqueeze(1))
 
+        # prediction
         tau = torch.Tensor(np.random.rand(batch_size * num_tau_sample, 1)).to(deviceGPU)
         z = self.icritic(states, tau, num_tau_sample)
         action = actions.unsqueeze(1).unsqueeze(1).expand(-1, 1, num_tau_sample)
         z_a = z.gather(1, action).squeeze(1)
 
+        # td target
         tau_prime = torch.Tensor(np.random.rand(batch_size * num_tau_prime_sample, 1)).to(deviceGPU)
         next_z = self.icritic_target(next_states, tau_prime, num_tau_prime_sample)
         next_action = next_z.mean(dim=2).max(1)[1]
