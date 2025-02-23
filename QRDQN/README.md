@@ -2,8 +2,31 @@
 ## Paper
 * https://arxiv.org/abs/1710.10044
 ## Main Algorithm
-* 
+* Using quantile to express distribution to avoid any projection of adoption
+  * ![Quantile](Quantile.png)
+* Using Quantile Regression Loss from Target Quantiles
+  * $L_{QR}(x;Z,\tau)=E_Z[\rho_\tau(Z-x)]$
+  * $\rho_\tau(u)=u(\tau-\mathbb I_{\{u<0\}})$ becomes $\rho^\kappa_\tau(u)=L_\kappa(u)|\tau-\mathbb I_{\{u<0\}}|$
+    * $L_\kappa(u)$ is Huber loss
+* Procedures
+  1. Target quantile calculation
+  2. Predicted quantile
+  3. Pairwise Differences
+  4. Including Huber loss to reduce sensitivity to outliers
+       * Using smooth_l1_loss instead of original Huber loss
+       * $
+\text{SmoothL1}(y_{predict},y_{trueth}) =
+\begin{cases}
+\frac{1}{2} (y_{predict}-y_{trueth})^2, & \text{if } |y_{predict}-y_{trueth}| \le 1 \\
+|y_{predict}-y_{trueth}| - \frac{1}{2}, & \text{otherwise}
+\end{cases}
+$
+  1. Quantile Thresholds (τ)
+  2. Incorporating Huber loss and quantile weights to calculate Asymmetric Quantile Penalty 
+        * Higher quantiles (τ>0.5) penalize under-predictions more heavily
+        * Lower quantiles (τ<0.5) penalize over-predictions more heavily
 * ![QRDQN-Algorithm](QRDQN.png)
+* another version ![QRDQN-Algorithm1](QRDQN-1.png)
 ## Figure Out
 * Distributional Value-Based
 * Model-Free
