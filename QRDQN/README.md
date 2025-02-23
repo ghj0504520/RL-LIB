@@ -5,7 +5,8 @@
 * Using quantile to express distribution to avoid any projection of adoption
   * ![Quantile](Quantile.png)
 * Using Quantile Regression Loss from Target Quantiles
-  * $\Large L_{QR}(x;Z,\tau)=E_Z[\rho_\tau(Z-x)]$
+  * $\Large L_{QR}(x;Z,\tau)=E_Z[\rho_\tau(Z-x)]=E_{z\sim B^*Z_{\hat\theta}(s,a)}[\rho_\tau(z-Z_{\theta}(s,a))]$
+  * $\Large B^*Z_{\hat\theta}(s,a)=r+\gamma Z_{\hat\theta}(s',a^*)$
   * $\Large \rho_\tau(u)=u(\tau-\mathbb I_{\{u<0\}})$ becomes $\Large \rho^\kappa_\tau(u)=L_\kappa(u)|\tau-\mathbb I_{\{u<0\}}|$
     * $\Large L_\kappa(u)$ is Huber loss
 * Procedures

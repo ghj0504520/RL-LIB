@@ -2,6 +2,8 @@
 ## Paper
 * https://arxiv.org/abs/1806.06923
 ## Main Algorithm
+* Distributional RL via a generative model for distribution Z
+  * without explicitly expressing quantiles
 * 
 * ![IQN-Algorithm](35_IQN.png)
 ## Figure Out
