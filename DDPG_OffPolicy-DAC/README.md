@@ -11,7 +11,7 @@
   * Using target network to evaluate next state q value and calculate current q value for MSE loss
   * By DPG theory, policy gradient under the deterministic policy is **identical** to the expected gradient of q value under the deterministic policy
     * **Directly using critic value as loss function**
-    * $`\Large \nabla_{\theta^\mu}J=\frac{1}{N}\Sigma[\nabla_aQ(s,a|\theta^{Q_k})|_{s=s_i,a=\mu(s_i|\theta^\mu)}\nabla_{\theta^\mu}\mu(s|\theta^\mu)|_{s_i}]`$
+    * $`\Large \nabla_{\theta^\mu}J=\frac{1}{N}\Sigma[\nabla_aQ(s,a|\theta^{Q_k})|_{s=s_i,a=\mu(s_i|\theta^\mu)}\nabla_{\theta^\mu}\mu(s|\theta^\mu)|_{s=s_i}]`$
       * $`\Large =\frac{1}{N}\Sigma[\nabla_{\theta^\mu}Q(s,a|\theta^{Q_k})|_{\theta^\mu=\theta^{\mu_k},a=\mu(s_i|\theta^\mu)}]`$
         * $\Large \theta^{\mu_k}$ is current deterministic policy
 * ![DDPG-flow](ddpgflow.png)
