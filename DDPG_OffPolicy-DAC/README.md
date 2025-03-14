@@ -13,7 +13,7 @@
     * **Directly using critic value as loss function**
     * $`\Large \nabla_{\theta^\mu}J=\frac{1}{N}\Sigma[\nabla_aQ(s,a|\theta^{Q_k})|_{s=s_i,a=\mu(s_i|\theta^\mu)}\nabla_{\theta^\mu}\mu(s|\theta^\mu)|_{s=s_i}]`$
       * $`\Large =\frac{1}{N}\Sigma[\nabla_{\theta^\mu}Q(s,a|\theta^{Q_k})|_{\theta^\mu=\theta^{\mu_k},a=\mu(s_i|\theta^\mu)}]`$
-        * $\Large \theta^{\mu_k}$ is current deterministic policy
+        * $\Large \theta^{\mu_k}$ is current policy
 * ![DDPG-flow](ddpgflow.png)
 * ![DDPG-structure](ddpg-structure.png)
 * ![DDPG-Algorithm](DDPG-algorithm.png)
