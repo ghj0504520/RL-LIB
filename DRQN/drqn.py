@@ -53,12 +53,12 @@ class LSTMCritic(nn.Module):
             nn.Linear(num_inputs, hidden_size),
             nn.ReLU()
         )
-        self.layers2 = nn.Sequential(
-            nn.Linear(self.lstmHidden_size, hidden_size),
-            nn.ReLU()
-        )
+        #self.layers2 = nn.Sequential(
+        #    nn.Linear(self.lstmHidden_size, hidden_size),
+        #    nn.ReLU()
+        #)
         self.layers3 = nn.Sequential(
-            nn.Linear(hidden_size, num_outputs)
+            nn.Linear(self.lstmHidden_size, num_outputs)
         )
         self.lstm=nn.LSTM(hidden_size,self.lstmHidden_size, batch_first=True)
     
