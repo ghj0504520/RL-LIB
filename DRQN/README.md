@@ -22,7 +22,7 @@
 * Epsilon greedy decay as episodes increase
 * CUDA device usage
 * Target evaluation without gradient back propagation 
-* total_episodes = 20000
+* total_episodes = 25000
 * batch_size = 64
 * gamma      = 0.99
 * soft update tar = 1e-2

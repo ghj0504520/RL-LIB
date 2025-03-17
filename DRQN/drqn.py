@@ -251,7 +251,7 @@ class DRQNAGENT(object):
 # Main training
 env_id = "CartPole-v1"
 env = gym.make(env_id)
-total_episodes = 20000
+total_episodes = 25000
 batch_size = 64
 learning_rate = 1e-3
 gamma      = 0.99
