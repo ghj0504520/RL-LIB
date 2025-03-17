@@ -9,7 +9,7 @@
   * Ornstein-Uhlenbeck process for exploration
 * Actor-Critic
   * Using target network to evaluate next state q value and calculate current Q value for MSE loss
-  * By DPG theory and chain rule, policy gradient under the deterministic policy is **identical** to the expected gradient of q value under the deterministic policy
+  * By DPG theory and chain rule, policy gradient under the deterministic policy is **identical** to the expected gradient of Q value under the deterministic policy
     * **Directly using critic Q value as loss function since this term can be derived to DPG formula through chain rule**
     * $`\Large \nabla_{\theta^\mu}J=\frac{1}{N}\Sigma[\nabla_aQ(s,a|\theta^{Q_k})|_{s=s_i,a=\mu(s_i|\theta^\mu)}\nabla_{\theta^\mu}\mu(s|\theta^\mu)|_{s=s_i}]`$, DPG theory
       * $`\Large =\frac{1}{N}\Sigma[\nabla_{\theta^\mu}Q(s,a|\theta^{Q_k})|_{\theta^\mu=\theta^{\mu_k},a=\mu(s_i|\theta^\mu)}]`$, just chain rule
