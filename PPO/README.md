@@ -17,14 +17,14 @@
   * Trust-Region Policy Optimization
     * Insensitive to learning rate
     * Capable to reach similar results with less data
-  * First, conventional objective of RL
-    * $\Large V_\pi=\Sigma_a\pi_\theta(a|S)Q_{\pi_\theta}(S,a)$
-  * Second, surrogate function by Performance Difference Lemma
-    * $\Large V_\pi=\Sigma_a\pi_\theta(a|S)Q_{\pi_\theta}(S,a)$
-    * $\Large =\Sigma_a\pi_{\theta_k}(a|S)\frac{\pi_{\theta}(a|S)}{\pi_{\theta_k}(a|S)}Q_{\pi_{\theta_k}}(S,a)=L_{\pi_{\theta_k}}(\pi_{\theta})$
-    * where $L$ is surrogate function of $\Large \pi_{\theta}$ under $\pi_{\theta_k}$
+  * First, the conventional objective of RL
+    * $\Large J_\pi(\theta)=V_\pi=\Sigma_a\pi_\theta(a|S)Q_{\pi_\theta}(S,a)$
+  * Second, surrogate objective function by Performance Difference Lemma from sampled old policy $\Large \theta_k$
+    * $\Large J_\pi(\theta,\theta_k)=\Sigma_a\pi_\theta(a|S)A_{\pi_{\theta_k}}(S,a)$, surrogate function by Performance Difference Lemma (action-state value Q becomes advantage A)
+    * $\Large =\Sigma_a\pi_{\theta_k}(a|S)\frac{\pi_{\theta}(a|S)}{\pi_{\theta_k}(a|S)}A_{\pi_{\theta_k}}(S,a)$, importance sampling mechanism
+    * where $\Large J_\pi(\theta,\theta_k)$ is surrogate function of $\Large \pi_{\theta}$ under $\Large \pi_{\theta_k}$
 * From TRPO to PPO
-  * Replace KL constraint with Lagrangian method by adding penalty terms
+  * Replace KL constraint with the Lagrangian method by adding penalty terms
   * Dynamically change penalty terms
 * From PPO to PPO Clip
   * Just clamp Surrogate Objective (ratio) instead of using KL penalty
