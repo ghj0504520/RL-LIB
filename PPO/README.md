@@ -35,7 +35,7 @@
 * PPO algorithm, or called PPO KL penalty ![PPO-Algorithm](ppo.png)
   * For continuous, use $\Large \frac{1}{L}\Sigma(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ to approximate KL divergence of Normal distribution rather than $\Large \Sigma\pi_{\theta_k}(a|s)(log(\pi_{\theta_k}(a|s)) - log(\pi_{\theta}(a|s)))$ 
 * PPO Clip algorithm ![PPO-Clip-Algorithm](ppo2.png)
-* GAE Estimation
+* GAE Estimation for $\Large A_{\pi_{\theta_k}}(S,a)$
   * Figure out handle terminated state and truncated state
 * For continuous env, rewards should scale to samller ones.
   * Due to reward scaling, we need to use another evaluation procedure to check performance.
