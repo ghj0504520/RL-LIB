@@ -119,7 +119,7 @@ class Critic(nn.Module):
         return self.layers(torch.cat([inputs, actions], dim=-1))
     
 
-class DDPGAGENT(object):
+class TD3AGENT(object):
     def __init__(self, num_inputs, action_space, gamma=0.995, tau=0.0005, hidden_size=128, lr_a=1e-4, lr_c=1e-3,
                 policy_noise=0.2, noise_clip=0.5, policy_delay=2):
 
@@ -257,7 +257,7 @@ def train():
     lr_a=3e-4
     lr_c=3e-3
     
-    ddpgAgent = DDPGAGENT(env.observation_space.shape[0], env.action_space, gamma, tau, hidden_size,lr_a, lr_c)
+    td3Agent = TD3AGENT(env.observation_space.shape[0], env.action_space, gamma, tau, hidden_size,lr_a, lr_c)
     ounoise = OUNoise(env.action_space.shape[0])
     replay_buffer = ReplayMemory(replay_size)
     
@@ -277,7 +277,7 @@ def train():
         while not terminate and not truncated:
             step = step +1
             
-            action = ddpgAgent.select_action(state, ounoise.noise())
+            action = td3Agent.select_action(state, ounoise.noise())
             next_state, reward, terminate, truncated, info = env.step(action.cpu().numpy()[0])
 
             done = terminate
@@ -297,7 +297,7 @@ def train():
 
             if replay_buffer.__len__() >= batch_size and total_numsteps%updates_per_step == 0:
                 training_batch = replay_buffer.sample(batch_size)
-                value_loss, policy_loss = ddpgAgent.update_parameters(training_batch)
+                value_loss, policy_loss = td3Agent.update_parameters(training_batch)
 
                 if policy_loss != None:
                     episode_p_losses += policy_loss.item()

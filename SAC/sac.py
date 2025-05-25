@@ -270,6 +270,7 @@ class SOFTACTORCRITICAGENT(object):
 
 
         # Training Policy Function
+        # reparameterization action, q value dependent on policy, cannot detach
         policy_loss = (alpha * log_prob - predicted_new_q_value).mean()
 
         self.policy_optimizer.zero_grad()

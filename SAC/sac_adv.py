@@ -85,8 +85,7 @@ class NormalizedActions(gym.ActionWrapper):
 class SoftQNetwork(nn.Module):
     def __init__(self, hidden_size, num_inputs, num_actions,  init_w=3e-3):
         super(SoftQNetwork, self).__init__()
-        
-        super(SoftQNetwork, self).__init__()
+
         self.layers = nn.Sequential(
             nn.Linear(num_inputs + num_actions, hidden_size),
             nn.ReLU(),
@@ -263,6 +262,7 @@ class ADVSOFTACTORCRITICAGENT():
 
 
         # Training Policy Function
+        # reparameterization action, q value dependent on policy, cannot detach
         predicted_new_q_value = torch.min(self.soft_q_net1(state, new_action),self.soft_q_net2(state, new_action))
         policy_loss = (self.alpha * log_prob - predicted_new_q_value).mean()
 
