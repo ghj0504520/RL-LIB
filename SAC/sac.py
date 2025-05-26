@@ -150,8 +150,6 @@ class PolicyNetwork(nn.Module):
         self.log_std_linear = nn.Linear(hidden_size, num_actions)
         self.log_std_linear.weight.data.uniform_(-init_w, init_w)
         self.log_std_linear.bias.data.uniform_(-init_w, init_w)
-
-        self.num_actions = num_actions
         
     def forward(self, state):
         x = self.shared_layers(state)
@@ -186,21 +184,6 @@ class PolicyNetwork(nn.Module):
          '''
         log_prob = log_prob.sum(dim=-1, keepdim=True)
         return action, log_prob, z, mean, log_std
-        
-    def get_predict_action(self, state):
-        mean, log_std = self.forward(state)
-        std = log_std.exp()
-        
-        normal = Normal(0, 1)
-        z      = normal.sample(mean.shape).to(deviceGPU)
-        action = torch.tanh(mean + std*z) #self.action_range* torch.tanh(mean + std*z)        
-        action = action.detach().cpu().numpy()[0]
-        
-        return action
-
-    def sample_action(self,):
-        a=torch.FloatTensor(self.num_actions).uniform_(-1, 1)
-        return a.numpy()
 
 
 # SOFT ACTOR and CRITIC AGENT
@@ -228,7 +211,24 @@ class SOFTACTORCRITICAGENT(object):
         self.soft_q_optimizer1 = optim.Adam(self.soft_q_net1.parameters(), lr=q_lr)
         self.soft_q_optimizer2 = optim.Adam(self.soft_q_net2.parameters(), lr=q_lr)
         self.policy_optimizer = optim.Adam(self.policy_net.parameters(), lr=p_lr)
+    
+        self.num_actions = num_actions
+
+    def action_selection(self, state=None):
+        if state is None:
+            a=torch.FloatTensor(self.num_actions).uniform_(-1, 1)
+            return a.numpy()
+
+        mean, log_std = self.policy_net(state)
+        std = log_std.exp()
         
+        normal = Normal(0, 1)
+        z      = normal.sample(mean.shape).to(deviceGPU)
+        action = torch.tanh(mean + std*z) #self.action_range* torch.tanh(mean + std*z)        
+        action = action.detach().cpu().numpy()[0]
+        
+        return action        
+
     def update_parameter(self, batch, reward_scale, gamma=0.99,soft_tau=1e-2):
         alpha = 1.0  # trade-off between exploration (max entropy) and exploitation (max Q)
                 
@@ -342,9 +342,9 @@ if __name__ == '__main__':
             step = step+1
 
             if frame_idx >= explore_steps:
-                action = sacAgent.policy_net.get_predict_action(state)
+                action = sacAgent.action_selection(state)
             else:
-                action = sacAgent.policy_net.sample_action()
+                action = sacAgent.action_selection()
             next_state, reward, terminate, truncated, _ = env.step(action)
 
             replay_buffer.push(
@@ -425,7 +425,7 @@ if __name__ == '__main__':
         truncated = False   
 
         while not terminate and not truncated:
-            action = sacAgent.policy_net.get_predict_action(state)
+            action = sacAgent.action_selection(state)
             next_state, reward, terminate, truncated, _ = env.step(action)
 
             episode_reward += reward

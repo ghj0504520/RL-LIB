@@ -133,8 +133,6 @@ class PolicyNetwork(nn.Module):
         self.log_std_linear.weight.data.uniform_(-init_w, init_w)
         self.log_std_linear.bias.data.uniform_(-init_w, init_w)
 
-        self.num_actions = num_actions
-
     def forward(self, state):
         x = self.shared_layers(state)
         mean    = (self.mean_linear(x))
@@ -175,21 +173,6 @@ class PolicyNetwork(nn.Module):
          '''
         log_prob = log_prob.sum(dim=1, keepdim=True)
         return action, log_prob, z, mean, log_std
-    
-    def get_action(self, state):
-        mean, log_std = self.forward(state)
-        std = log_std.exp()
-        
-        normal = Normal(0, 1)
-        z      = normal.sample(mean.shape).to(deviceGPU)
-        action = torch.tanh(mean + std*z) #self.action_range* torch.tanh(mean + std*z)
-        action = action.detach().cpu().numpy()[0]
-
-        return action
-    
-    def sample_action(self,):
-        a=torch.FloatTensor(self.num_actions).uniform_(-1, 1)
-        return a.numpy()
 
 
 # Advanced SOFT ACTOR and CRITIC AGENT
@@ -217,7 +200,24 @@ class ADVSOFTACTORCRITICAGENT():
         self.soft_q_optimizer2 = optim.Adam(self.soft_q_net2.parameters(), lr=soft_q_lr)
         self.policy_optimizer = optim.Adam(self.policy_net.parameters(), lr=policy_lr)
         self.alpha_optimizer = optim.Adam([self.log_alpha], lr=alpha_lr)
+
+        self.num_actions = num_actions
+
+    def action_selection(self, state=None):
+        if state is None:
+            a=torch.FloatTensor(self.num_actions).uniform_(-1, 1)
+            return a.numpy()
+       
+        mean, log_std = self.policy_net(state)
+        std = log_std.exp()
     
+        normal = Normal(0, 1)
+        z      = normal.sample(mean.shape).to(deviceGPU)
+        action = torch.tanh(mean + std*z) #self.action_range* torch.tanh(mean + std*z)
+        action = action.detach().cpu().numpy()[0]
+    
+        return action        
+
     def update(self, batch, reward_scale=10., auto_alpha=True, target_entropy=-2, gamma=0.99,soft_tau=1e-2):
         
         state = to_device(torch.cat([b.state for b in batch]))
@@ -338,9 +338,9 @@ if __name__ == '__main__':
             step = step+1
 
             if frame_idx > explore_steps:
-                action = advSACAgent.policy_net.get_action(state)
+                action = advSACAgent.action_selection(state)
             else:
-                action = advSACAgent.policy_net.sample_action()
+                action = advSACAgent.action_selection()
             
             next_state, reward, terminate, truncated, _ = env.step(action)
                 
@@ -422,7 +422,7 @@ if __name__ == '__main__':
         truncated = False   
 
         while not terminate and not truncated:
-            action = advSACAgent.policy_net.get_action(state)
+            action = advSACAgent.action_selection(state)
             next_state, reward, terminate, truncated, _ = env.step(action)
             #env.render()   
 

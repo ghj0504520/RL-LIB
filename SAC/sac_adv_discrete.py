@@ -84,8 +84,6 @@ class PolicyNetwork(nn.Module):
             nn.Softmax(dim=-1)
         )
 
-        self.num_actions = num_actions
-        
     def forward(self, state):
         probs = self.layers(state)
         return probs
@@ -102,16 +100,6 @@ class PolicyNetwork(nn.Module):
         log_probs = torch.log(probs + z)
 
         return log_probs
-        
-    def get_action(self, state, deterministic):
-        probs = self.forward(state)
-        dist = Categorical(probs)
-
-        if deterministic:
-            action = np.argmax(probs.detach().cpu().numpy())
-        else:
-            action = dist.sample().squeeze().detach().cpu().numpy()
-        return action.item()
 
 
 # Advanced SOFT ACTOR and CRITIC AGENT for discrete
@@ -136,6 +124,16 @@ class ADVSOFTACTORCRITICAGENT():
         self.policy_optimizer = optim.Adam(self.policy_net.parameters(), lr=p_lr)
         self.alpha_optimizer = optim.Adam([self.log_alpha], lr=a_lr)
     
+    def action_selection(self, state, deterministic):
+        probs = self.policy_net(state)
+        dist = Categorical(probs)
+
+        if deterministic:
+            action = np.argmax(probs.detach().cpu().numpy())
+        else:
+            action = dist.sample().squeeze().detach().cpu().numpy()
+        return action.item()
+        
     def update(self, batch, reward_scale=10., auto_entropy=True, target_entropy=-2, gamma=0.99, soft_tau=1e-2):
         state = to_device(torch.cat([b.state for b in batch]))
         action = to_device(torch.cat([b.action for b in batch]))
@@ -250,7 +248,7 @@ if __name__ == '__main__':
         while not terminate and not truncated:
             step = step+1
 
-            action = advSACDAgent.policy_net.get_action(state, deterministic = DETERMINISTIC)
+            action = advSACDAgent.action_selection(state, deterministic = DETERMINISTIC)
 
             next_state, reward, terminate, truncated, _ = env.step(action)
             # env.render()       
