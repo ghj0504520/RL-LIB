@@ -72,6 +72,7 @@
 * gamma      = 0.99
 * soft_tau   = 1e-2
 * target entropy for advanced SAC version: -2
+  * in continuous, entropy can be negative since PDF might larger than 1
 * value learning rate = 3e-4
 * soft_q learning rate = 3e-4
 * policy learning rate = 3e-4
