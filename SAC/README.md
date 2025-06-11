@@ -73,6 +73,13 @@
 * soft_tau   = 1e-2
 * target entropy for advanced SAC version: -2
   * in continuous, entropy can be negative since PDF might larger than 1
+    * $\Large -\int \pi_t(a_t|s_t)\log\pi_t(a_t|s_t)d{a_t}$ which might be negative since $\Large \log\pi_t(a_t|s_t)$ might be positive
+    * from paper suggestion, $\Large -1*\dim(a)$
+  * in discrete, entropy always larger than zero since PMF smaller than 1
+    * $\Large -\Sigma_{a_t}\pi_t(a_t|s_t)\log\pi_t(a_t|s_t)$
+    * hence, set target entropy larger than zero
+      * from paper suggestion, $\Large 0.98*(-1*\log(1/\dim(a)))$ which is positive since $\Large \log\pi_t(a_t|s_t)$ must be negative
+      * however, for better effect, choosing 0.6
 * value learning rate = 3e-4
 * soft_q learning rate = 3e-4
 * policy learning rate = 3e-4

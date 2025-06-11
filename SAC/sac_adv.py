@@ -302,7 +302,7 @@ policy_lr = 3e-4
 alpha_lr  = 3e-4
 
 replay_buffer_size = 1e6
-
+target_entropy = -1.*action_dim
 max_episodes  = 500
 max_steps = 200  # Pendulum needs 150 steps per episode to learn well
 frame_idx   = 0
@@ -359,7 +359,7 @@ if __name__ == '__main__':
             
             if len(replay_buffer) > batch_size:
                 batch = replay_buffer.sample(batch_size)
-                ploss, qloss=advSACAgent.update(batch, reward_scale, auto_alpha=AUTO_ALPHA, target_entropy=-1.*action_dim)
+                ploss, qloss=advSACAgent.update(batch, reward_scale, auto_alpha=AUTO_ALPHA, target_entropy=target_entropy)
 
                 episode_p_loss = episode_p_loss+ploss.item()
                 episode_q_loss = episode_q_loss + qloss.item()*0.5

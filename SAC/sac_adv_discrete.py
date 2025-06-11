@@ -220,9 +220,9 @@ AUTO_ENTROPY=True
 DETERMINISTIC=False
 hidden_dim = 512
 replay_buffer_size = 1e6
-target_entropy = -1.*action_dim
-# target_entropy = 0.98 * -np.log(1 / action_dim)
-
+#target_entropy = -1.*action_dim
+# use 0.6 instead of suggested 0.98 for better effect
+target_entropy = 0.6 * -np.log(1 / action_dim)
 q_losses = []
 p_losses = []
 all_rewards = []
