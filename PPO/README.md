@@ -6,6 +6,7 @@
 * PPO
   * https://arxiv.org/abs/1707.06347
   * https://arxiv.org/abs/1906.10306
+    * as the original versions, such variants also allow us to approximately obtain the improved policy πθk+1 using SGD, and moreover, enjoy global convergence
 * PPO Clip
   * https://arxiv.org/abs/2110.13799
   * https://arxiv.org/abs/2312.12065
