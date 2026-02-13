@@ -1,7 +1,7 @@
 import os
 import sys
 import gym
-import random
+import math, random
 import argparse
 import numpy as np
 
@@ -51,6 +51,13 @@ def to_device(data):
     if isinstance(data, (list, tuple)):
         return [to_device(d, deviceGPU) for d in data]
     return data.to(deviceGPU)
+
+# Epsilon greedy decay as episodes increase
+epsilon_start = 1.0
+epsilon_final = 0.01
+epsilon_decay = 150
+
+epsilon_by_episode = lambda episode_idx: epsilon_final + (epsilon_start - epsilon_final) * math.exp(-1. * episode_idx / epsilon_decay)
 
 # NN model
 class QRCritic(nn.Module):
@@ -132,6 +139,7 @@ class QRDQNAGENT(object):
 
         self.optim.zero_grad()
         loss.backward()
+        nn.utils.clip_grad_norm_(self.qrcritic.parameters(), 10.0)
         self.optim.step()
 
         return loss
@@ -141,10 +149,10 @@ gamma = 0.99
 batch_size = 64
 lr = 0.001
 initial_exploration = 1000
-goal_score = 480
+goal_score = 490
 log_interval = 10
 update_target = 100
-replay_memory_capacity = 10000
+replay_memory_capacity = 100000
 
 num_support = 8
 
@@ -167,12 +175,13 @@ def main():
     
     epsilon = 1.0
     steps = 0
-    
+    success_count = 0
+
     for episode_idx in range(10000):
         initState,_ = env.reset()
         state = torch.Tensor(initState).to(deviceGPU)
         state = state.unsqueeze(0)
-
+        epsilon = epsilon_by_episode(episode_idx)
         terminate = False
         truncated = False
         episode_reward = 0
@@ -198,14 +207,14 @@ def main():
             state = next_state
 
             if steps > initial_exploration:
-                epsilon -= 0.00005
-                epsilon = max(epsilon, 0.1)
+                #epsilon -= 0.00005
+                #epsilon = max(epsilon, 0.1)
 
                 training_batch = replay_buffer.sample(batch_size)
                 tmpLoss = qrdqnAgent.update_parameter(training_batch)
                 loss += tmpLoss.item()
-                if steps % update_target == 0:
-                    hard_update(qrdqnAgent.qrcritic_target, qrdqnAgent.qrcritic)
+                #if steps % update_target == 0:
+                soft_update(qrdqnAgent.qrcritic_target, qrdqnAgent.qrcritic, 0.005)
         
         losses.append(loss/step)
 
@@ -217,8 +226,11 @@ def main():
                                                                                        episode_reward, ewma_reward, loss/step))
         # early terminate
         if ewma_reward > goal_score:
+            success_count += 1
+        else:
+            success_count = 0
+        if success_count >= 30:
             break
-    
 
     chunk_size = 1  # Every 1 episodes
     num_chunks = len(all_rewards) // chunk_size  # Number of chunks
