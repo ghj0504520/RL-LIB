@@ -30,10 +30,10 @@ class ReplayMemory(object):
         self.memory = []
         self.position = 0
 
-    def push(self, state, next_state, action, reward, mask):
+    def push(self, *args):
         if len(self.memory) < self.capacity:
             self.memory.append(None)
-        self.memory[self.position] = Transition(state, next_state, action, reward, mask)
+        self.memory[self.position] = Transition(*args)
         self.position = (self.position + 1) % self.capacity
 
     def sample(self, batch_size):
